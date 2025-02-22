@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      li {
+        color: tomato;
+      }
+    </style>
+
+    <title>Tour of DOM</title>
+  </head>
+  <body>
+    <header><h1>Welcome to my DOM</h1></header>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+      reprehenderit, magnam eum ipsum minima illum ad ea consectetur dolorem
+      consequuntur illo sapiente suscipit quasi unde ab. Dolores commodi ad
+      illo?
+    </p>
+    <main>
+      <section id="domDeBaba" class="dom-container bg-500-red">
+        <h1>My awesome DOM de baba</h1>
+        <ul>
+          <li>Jalali Set</li>
+          <li>Shafayet</li>
+          <li>bonobash</li>
+          <li>DOM de re baba</li>
+        </ul>
+      </section>
+      <section class="fruits-container">
+        <h1 id="fruits-title">Fruits I like</h1>
+        <ul>
+          <li>Apple</li>
+          <li>Mango</li>
+          <li>Banana</li>
+        </ul>
+      </section>
+      <section class="places-container">
+        <h1 id="places-title">Places I want to visit</h1>
+        <ul>
+          <li class="important-places">Shundorbon</li>
+          <li class="important-places">Bandorbon</li>
+          <li class="important-places">Katabon</li>
+          <li class="other-places">Shalbon</li>
+        </ul>
+      </section>
+    </main>
+    <script>
+      //   console.log("Adding script in html file");
+
+      // 1. getElementsByTagName()
+      const liCollection = document.getElementsByTagName("li");
+
+      console.log(liCollection); //HTMLCollection(4) [li, li, li, li]
+      /* *
+       * Here, [li, li, li, li] are not array but they are array like object or HTMLCollection. You can apply some of array methods but not all the array methods in HTMLCollection.
+       */
+
+      for (const li of liCollection) {
+        console.log(li.innerText);
+      }
+
+      const allHeading = document.getElementsByTagName("h1");
+      for (const h1 of allHeading) {
+        console.log(h1.innerText);
+      }
+
+      //   console.log(li);
+
+      // 2. getElementsByClassName()
+      const places = document.getElementsByClassName("important-places");
+      for (const place of places) {
+        console.log(place.innerText);
+      }
+
+      let findPlace = document.getElementsByClassName("fav-places");
+      console.log(findPlace); //HTMLCollection []
+
+      // 3. getElementById()
+      let findPlace2 = document.getElementById("fav-places");
+      console.log(findPlace2); //null
+      //   Note: If u want to get the element that are not present in the HTML document as classNames it will show empty HTMLCollection[] and incase of getElementById it will show null.
+
+      // 4. querySelectorAll
+      const domContainers = document.querySelectorAll(".dom-container li");
+      console.log(domContainers);
+      for (const li of domContainers) {
+        console.log("Using querySelectorAll", li.innerText);
+        /* Using querySelectorAll Jalali Set
+index.html:91 Using querySelectorAll Shafayet
+index.html:91 Using querySelectorAll bonobash
+index.html:91 Using querySelectorAll DOM de re baba */
+      }
+
+      // 5. querySelector
+      // to get first elements from class
+      const singEleDomContain = document.querySelector(".dom-container li");
+      console.log("single element from querySelector", singEleDomContain);
+      /* single element from querySelector <li>​…​</li>*/
+
+      //Note: Difference Between the result of getElementsByClassName & querySelectorAll
+      // The both result shows array like object but getElementsByClassName shows HTMLCollection[] (HTMLCollection[] is live means when there is a change in the document, it will be automatically updated to reflect the change) where u can apply only for of loop. On the other hand  querySelectorAll shows NodeList[](NodeList[] is sometimes static i.e. A change in the document isn't reflected in the NodeList.) where u can apply both for of and forEach loop
+      // for more detail visit https://www.freecodecamp.org/news/dom-manipulation-htmlcollection-vs-nodelist/
+
+      //setting style elements
+      let getFruitsTitleStyle = document.getElementById("fruits-title").style;
+      console.log(getFruitsTitleStyle); //CSSStyleDeclaration {accentColor: '', additiveSymbols: '', alignContent: '', alignItems: '', alignSelf: '', …}
+
+      getFruitsTitleStyle.color = "lightblue";
+      getFruitsTitleStyle.backgroundColor = "green";
+      getFruitsTitleStyle.textAlign = "center";
+
+      // or
+
+      // setAttribute()
+
+      let getFruitsTitle = document.getElementById("fruits-title");
+      getFruitsTitle.setAttribute("title", "tooltip set by Javascript"); //hover over title 'Fruits I like'
+
+      // getAttributes: Getting styles elements
+      let domTitle = document.getElementById("domDeBaba");
+      console.log(domTitle.getAttribute("class")); //dom-container bg-500-red
+
+      // or
+
+      //  classList: Getting styles elements
+      console.log(domTitle.classList); //DOMTokenList(2) ['dom-container', 'bg-500-red', value: 'dom-container bg-500-red']
+
+      // adding classes using classList
+      domTitle.classList.add("bg-300-black");
+      console.log(domTitle.classList); //DOMTokenList(3) ['dom-container', 'bg-500-red', 'bg-300-black']
+
+      // removing classes using classList
+      domTitle.classList.remove("bg-500-red");
+      console.log(domTitle.classList); //DOMTokenList(2) ['dom-container', 'bg-300-black']
+
+      // another way of getting elements
+      let fruitsContainer =
+        document.getElementsByClassName("fruits-container")[0].innerHTML;
+      console.log(fruitsContainer);
+
+      // changing the value of upper method
+      /* document.getElementsByClassName("fruits-container")[0].innerHTML =
+        "<h2>ABC wow DOM is changing</h2>"; */ //after that fruit container is changed. so commented out this.
+
+      // to get only the text without tag using innerText
+      let placeContainer =
+        document.getElementsByClassName("places-container")[0].innerText;
+      console.log(placeContainer); /* Places I want to visit
+Shundorbon
+Bandorbon
+Katabon
+Shalbon */
+    </script>
+    <script src="dom.js"></script>
+  </body>
+</html>
