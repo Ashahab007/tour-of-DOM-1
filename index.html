@@ -13,7 +13,9 @@
     <title>Tour of DOM</title>
   </head>
   <body>
-    <header><h1>Welcome to my DOM</h1></header>
+    <header>
+      <h1>Welcome to my DOM</h1>
+    </header>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
       reprehenderit, magnam eum ipsum minima illum ad ea consectetur dolorem
@@ -60,20 +62,22 @@
        */
 
       for (const li of liCollection) {
-        console.log(li.innerText);
+        console.log("All li: ", li.innerText);
       }
 
       const allHeading = document.getElementsByTagName("h1");
       for (const h1 of allHeading) {
-        console.log(h1.innerText);
+        console.log("All heading: ", h1.innerText);
       }
 
       //   console.log(li);
 
       // 2. getElementsByClassName()
       const places = document.getElementsByClassName("important-places");
+      console.log(places); //HTMLCollection(3) [li.important-places, li.important-places, li.important-places]
+
       for (const place of places) {
-        console.log(place.innerText);
+        console.log("place: ", place.innerText);
       }
 
       let findPlace = document.getElementsByClassName("fav-places");
@@ -90,16 +94,18 @@
       for (const li of domContainers) {
         console.log("Using querySelectorAll", li.innerText);
         /* Using querySelectorAll Jalali Set
-index.html:91 Using querySelectorAll Shafayet
-index.html:91 Using querySelectorAll bonobash
-index.html:91 Using querySelectorAll DOM de re baba */
+      index.html:91 Using querySelectorAll Shafayet
+      index.html:91 Using querySelectorAll bonobash
+      index.html:91 Using querySelectorAll DOM de re baba */
       }
 
       // 5. querySelector
       // to get first elements from class
       const singEleDomContain = document.querySelector(".dom-container li");
-      console.log("single element from querySelector", singEleDomContain);
-      /* single element from querySelector <li>​…​</li>*/
+      console.log(
+        "single element from querySelector",
+        singEleDomContain.innerText
+      ); /* single element from querySelector Jalali Set*/
 
       //Note: Difference Between the result of getElementsByClassName & querySelectorAll
       // The both result shows array like object but getElementsByClassName shows HTMLCollection[] (HTMLCollection[] is live means when there is a change in the document, it will be automatically updated to reflect the change) where u can apply only for of loop. On the other hand  querySelectorAll shows NodeList[](NodeList[] is sometimes static i.e. A change in the document isn't reflected in the NodeList.) where u can apply both for of and forEach loop
@@ -126,6 +132,8 @@ index.html:91 Using querySelectorAll DOM de re baba */
 
       // or
 
+      // Note: Here tailwind class is used for dummy without installing tailwind that's why tailwind classes are not working in html.
+
       //  classList: Getting styles elements
       console.log(domTitle.classList); //DOMTokenList(2) ['dom-container', 'bg-500-red', value: 'dom-container bg-500-red']
 
@@ -138,22 +146,35 @@ index.html:91 Using querySelectorAll DOM de re baba */
       console.log(domTitle.classList); //DOMTokenList(2) ['dom-container', 'bg-300-black']
 
       // another way of getting elements
+      let fruitsContainers =
+        document.getElementsByClassName("fruits-container");
+      console.log(fruitsContainers.innerHTML); //undefined //এখানে fruits-container   টা getElementsByClassName দিয়ে ধরলে তা array like object i.e HTMLCollection. Collection of element normal innerHTML দিয়ে ধরা যায় না । তাই undefined show করে । To get the element use following method or loop.
+
       let fruitsContainer =
         document.getElementsByClassName("fruits-container")[0].innerHTML;
-      console.log(fruitsContainer);
+      console.log(
+        fruitsContainer
+      ); /*  <h1 id="fruits-title" title="tooltip set by Javascript" style="color: lightblue; background-color: green; text-align: center;">Fruits I like</h1>
+              <ul>
+                <li>Apple</li>
+                <li>Mango</li>
+                <li>Banana</li>
+              </ul> */
 
       // changing the value of upper method
-      /* document.getElementsByClassName("fruits-container")[0].innerHTML =
-        "<h2>ABC wow DOM is changing</h2>"; */ //after that fruit container is changed. so commented out this.
+      /* let changeFruitsContainer =
+              document.getElementsByClassName("fruits-container")[0];
+            changeFruitsContainer.innerHTML = "<h2>ABC wow DOM is changing</h2>";
+            console.log(changeFruitsContainer); */ //after that fruit container is changed. so commented out this.
 
-      // to get only the text without tag using innerText
+      // to get only the text using innerText
       let placeContainer =
         document.getElementsByClassName("places-container")[0].innerText;
       console.log(placeContainer); /* Places I want to visit
-Shundorbon
-Bandorbon
-Katabon
-Shalbon */
+      Shundorbon
+      Bandorbon
+      Katabon
+      Shalbon */
     </script>
     <script src="dom.js"></script>
   </body>
